@@ -2,6 +2,17 @@ module Api
 	module V1
 		class AdvertisementsController < ApplicationController
 
+			def index
+				advertisements = Advertisement.order('created_at DESC')
+				render json:{status:'sucess', message:'advertisement lists', data:advertisements}, status: :ok
+
+			end
+
+			def show
+				advertisement = Advertisement.find(params[:id])
+				render json:{status:'ok', message:'You searched for...', data:advertisement},status: :ok
+			end
+
 			def create
 				advertisement = Advertisement.new(advertisement_params)
 
@@ -10,6 +21,12 @@ module Api
 				else
 					render json:{status: 'error', message: 'advertisement not added', data:advertisement}, status: :unprocessable_entity
 				end
+			end
+
+			def destroy
+				advertisement = Advertisement.find(params[:id])
+				advertisement.destroy
+				render json:{sucess:'deleted', message:'Advertisement has been deleted', data:advertisement}, sucess: :unprocessable_entity
 			end
 
 			private
