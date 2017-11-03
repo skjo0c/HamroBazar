@@ -17,6 +17,9 @@ module Api
 				advertisement = Advertisement.new(advertisement_params)
 
 				if advertisement.save
+					params[:advertisement][:picture_data].each do |file|
+						advertisement.documents.create!(:picture => file)
+					end
 					render json:{status: 'sucess', message: 'advertisement added', data:advertisement}, status: :ok
 				else
 					render json:{status: 'error', message: 'advertisement not added', data:advertisement}, status: :unprocessable_entity
@@ -32,7 +35,7 @@ module Api
 			private
 
 			def advertisement_params
-				params.permit(:name, :price, :description)
+				params.permit(:name, :price, :description, :picture_data => [])
 			end
 		end
 	end

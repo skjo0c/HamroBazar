@@ -4,7 +4,6 @@ class CreateAdvertisements < ActiveRecord::Migration[5.0]
       t.string :name, null: false
       t.integer :price, null: false
       t.text :description, null: false
-      t.json :pictures
 
       t.timestamps
     end
