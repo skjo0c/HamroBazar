@@ -20,6 +20,12 @@ gem 'rack-cors'
 gem 'carrierwave'
 #Use base64code
 gem 'carrierwave-base64'
+#for has_secure_pw
+ gem 'bcrypt', '~> 3.1.7'
+ #using jwt token
+ gem 'jwt'
+#simple cmd for model and controller connection
+gem 'simple_command'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
