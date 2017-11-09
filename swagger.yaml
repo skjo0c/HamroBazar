@@ -1,0 +1,379 @@
+swagger: '2.0'
+info:
+  description: >-
+    This is an API for hamrobazar clone. These api helps to create advertisments
+    and many more
+  version: 1.0.0
+  title: Hamrobazar clone
+  termsOfService: 'http://hamrobazar.io/terms/'
+  contact:
+    email: apiteam@hamrobazarclone.io
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+host: api.hamrobzarclone.com
+basePath: /v1
+tags:
+  - name: advertisement
+    description: Everything about your Advertisements
+schemes:
+  - http
+paths:
+  /advertisements:
+    post:
+      tags:
+        - advertisement
+      summary: Add a new Advertisement
+      description: ''
+      operationId: addAdvertisement
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Advertisment object that needs to be added
+          required: true
+          schema:
+            $ref: '#/definitions/Advertisement'
+      responses:
+        '201':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Advertisement'
+        '405':
+          description: Invalid input
+      security:
+        - api_key: []
+    get:
+      tags:
+        - advertisement
+      summary: View Advertisement by ID
+      description: Returns a single advertisement
+      operationId: getAdvertisement
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        '201':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Advertisement'
+        '405':
+          description: Invalid input
+      security:
+        - api_key: []
+  '/advertisement/{advertisementId}':
+    get:
+      tags:
+        - advertisement
+      summary: View Advertisement by ID
+      description: Returns a single advertisement
+      operationId: getAdvertisementbyId
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: advertisementId
+          description: id of advertisement to return
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '201':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Advertisement'
+        '405':
+          description: Invalid input
+      security:
+        - api_key: []
+    put:
+      tags:
+        - advertisement
+      summary: Update an existing Advertisement
+      description: ''
+      operationId: updateAdvertisementbyId
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: advertisementId
+          description: Advertisment object that needs to be updated
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '201':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Advertisement'
+        '405':
+          description: Invalid input
+      security:
+        - api_key: []
+    delete:
+      tags:
+        - advertisement
+      summary: Deletes Advertisement by ID
+      description: ''
+      operationId: deleteAdvertisementbyId
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: advertisementId
+          description: id of advertisement to delete
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '400':
+          description: Invalid input
+        '405':
+          description: Advertisement not found
+      security:
+        - api_key: []
+  '/advertisement/{advertisementId}/uploadImage':
+    post:
+      tags:
+        - advertisement
+      summary: upload an image
+      description: ''
+      operationId: uploadFile
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - name: advertisementId
+          in: path
+          description: Id of advertisement to add images
+          required: true
+          type: integer
+          format: int64
+        - name: additional Metadata
+          in: formData
+          description: Additional data to pass to server
+          required: false
+          type: string
+        - name: file
+          in: formData
+          description: file to upload
+          required: false
+          type: file
+      responses:
+        '200':
+          description: sucessful operation
+          schema:
+            $ref: '#/definitions/ApiResponse'
+      security:
+        - api_key: []
+  /user:
+    post:
+      tags:
+        - user
+      summary: Add a new user
+      description: ''
+      operationId: addUser
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: User to be added
+          required: true
+          schema:
+            $ref: '#definitions/User'
+      responses:
+        '201':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Advertisement'
+        '405':
+          description: Invalid input
+      security:
+        - api_key: []
+    get:
+      tags:
+        - user
+      summary: Show all the user
+      description: ''
+      operationId: getUser
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        '201':
+          description: Successful Operation
+          schema:
+            $ref: '#definitions/User'
+        '405':
+          description: Invalid Input
+      security:
+        - api_key: []
+  '/user/{userId}':
+    get:
+      tags:
+        - user
+      summary: View User of certain ID
+      description: Returns a single user
+      operationId: getUserbyId
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: userId
+          description: id of user to return
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '201':
+          description: Succesful operation
+          schema:
+            $ref: '#/definitions/User'
+        '405':
+          description: Invalid input
+      security:
+        - api_key: []
+    put:
+      tags:
+        - user
+      summary: Update user of certain ID
+      description: Gets a user and able to update
+      operationId: updateUserbyId
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: userId
+          description: User object that need to be updated
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '201':
+          description: succesful operation
+          schema:
+            $ref: '#/definitions/User'
+        '405':
+          description: Invalid input
+      security:
+        - api_key: []
+    delete:
+      tags:
+        - user
+      summary: Delete user of certain ID
+      description: Gets a user and able to delete
+      operationId: deleteUserbyId
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: userId
+          description: User object that need to be deleted
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '400':
+          description: Invalid input
+        '405':
+          description: Advertisement not found
+      security:
+        - api_key: []
+  '/user/{userId}/uploadImage':
+    post:
+      tags:
+        - user
+      summary: upload an image
+      description: ''
+      operationId: uploadDp
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - name: userId
+          in: path
+          description: Id of user to add images
+          required: true
+          type: integer
+          format: int64
+        - name: additional Metadata
+          in: formData
+          description: Additional data to pass to server
+          required: false
+          type: string
+        - name: file
+          in: formData
+          description: file to upload
+          required: false
+          type: file
+      responses:
+        '200':
+          description: sucessful operation
+          schema:
+            $ref: '#/definitions/ApiResponse'
+      security:
+        - api_key: []
+definitions:
+  Advertisement:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      name:
+        type: string
+      price:
+        type: integer
+  User:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      firstname:
+        type: string
+      lastname:
+        type: string
+      email:
+        type: string
+      mobile:
+        type: string
+      password:
+        type: string
+  ApiResponse:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      type:
+        type: string
+      message:
+        type: string
+securityDefinitions:
+  api_key:
+    type: apiKey
+    name: api_key
+    in: header
