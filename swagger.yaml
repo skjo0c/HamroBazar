@@ -49,7 +49,7 @@ paths:
     get:
       tags:
         - advertisement
-      summary: View Advertisement by ID
+      summary: View all Advertisement
       description: Returns a single advertisement
       operationId: getAdvertisement
       consumes:
@@ -57,10 +57,12 @@ paths:
       produces:
         - application/json
       responses:
-        '201':
+        '200':
           description: successful operation
           schema:
-            $ref: '#/definitions/Advertisement'
+            type: array
+            items:
+              $ref: '#/definitions/Advertisement'
         '405':
           description: Invalid input
       security:
@@ -84,7 +86,7 @@ paths:
           type: integer
           format: int64
       responses:
-        '201':
+        '200':
           description: successful operation
           schema:
             $ref: '#/definitions/Advertisement'
@@ -110,7 +112,7 @@ paths:
           type: integer
           format: int64
       responses:
-        '201':
+        '200':
           description: successful operation
           schema:
             $ref: '#/definitions/Advertisement'
@@ -171,7 +173,7 @@ paths:
           required: false
           type: file
       responses:
-        '200':
+        '201':
           description: sucessful operation
           schema:
             $ref: '#/definitions/ApiResponse'
@@ -215,10 +217,12 @@ paths:
       produces:
         - application/json
       responses:
-        '201':
+        '200':
           description: Successful Operation
           schema:
-            $ref: '#definitions/User'
+            type: array
+            items:
+              $ref: '#definitions/User'
         '405':
           description: Invalid Input
       security:
@@ -242,7 +246,7 @@ paths:
           type: integer
           format: int64
       responses:
-        '201':
+        '200':
           description: Succesful operation
           schema:
             $ref: '#/definitions/User'
@@ -268,7 +272,7 @@ paths:
           type: integer
           format: int64
       responses:
-        '201':
+        '200':
           description: succesful operation
           schema:
             $ref: '#/definitions/User'
@@ -300,41 +304,7 @@ paths:
           description: Advertisement not found
       security:
         - api_key: []
-  '/user/{userId}/uploadImage':
-    post:
-      tags:
-        - user
-      summary: upload an image
-      description: ''
-      operationId: uploadDp
-      consumes:
-        - multipart/form-data
-      produces:
-        - application/json
-      parameters:
-        - name: userId
-          in: path
-          description: Id of user to add images
-          required: true
-          type: integer
-          format: int64
-        - name: additional Metadata
-          in: formData
-          description: Additional data to pass to server
-          required: false
-          type: string
-        - name: file
-          in: formData
-          description: file to upload
-          required: false
-          type: file
-      responses:
-        '200':
-          description: sucessful operation
-          schema:
-            $ref: '#/definitions/ApiResponse'
-      security:
-        - api_key: []
+
 definitions:
   Advertisement:
     type: object
@@ -362,6 +332,9 @@ definitions:
         type: string
       password:
         type: string
+      picture:
+        type: string
+
   ApiResponse:
     type: object
     properties:
@@ -372,6 +345,7 @@ definitions:
         type: string
       message:
         type: string
+
 securityDefinitions:
   api_key:
     type: apiKey
