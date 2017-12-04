@@ -5,8 +5,9 @@ Rails.application.routes.draw do
   	namespace 'v1' do
   		resources :users
   		resources :advertisements
-      post 'authenticate', to: 'authentication#authenticate'
+      	post 'authenticate', to: 'authentication#authenticate'
+      	post 'auth/login', to: 'users#login'
   	end
   end
-  
+
 end
