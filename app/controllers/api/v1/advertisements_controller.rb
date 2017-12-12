@@ -16,10 +16,11 @@ module Api
 
 			def create
 				advertisement = Advertisement.new(advertisement_params)
+	
 
 				if advertisement.save
 					params[:advertisement][:picture_data].each do |file|
-						advertisement.documents.create!(:picture => file)
+						advertisement.adphotos.create!(:picture => file)
 					end
 					render json:{status: 'sucess', message: 'advertisement added', data:advertisement}, status: :ok
 				else
