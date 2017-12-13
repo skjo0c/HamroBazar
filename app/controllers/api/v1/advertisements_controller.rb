@@ -1,7 +1,7 @@
 module Api
 	module V1
 		class AdvertisementsController < ApplicationController
-			skip_before_filter :authenticate_request
+			skip_before_filter :authenticate_request, only: [:index, :show]
 			
 			def index
 				advertisements = Advertisement.order('created_at DESC')

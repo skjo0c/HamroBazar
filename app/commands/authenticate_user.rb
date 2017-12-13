@@ -10,10 +10,6 @@ class AuthenticateUser
 		JsonWebToken.encode(user_id: user.id) if user
 	end
 
-	private
-
-	attr_accessor :email, :password
-
 	def user
 		user = User.find_by_email(email)
 		return user if user && user.authenticate(password)
@@ -21,4 +17,10 @@ class AuthenticateUser
 		errors.add :user_authentication, 'invalid credentials'
 		nil
 	end
+	
+	private
+
+	attr_accessor :email, :password
+
+
 end
