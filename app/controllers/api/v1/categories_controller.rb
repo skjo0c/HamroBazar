@@ -1,6 +1,6 @@
 module Api
 	module V1
-		class CategorysController < ApplicationController
+		class CategoriesController < ApplicationController
 			
 			before_filter: authorize_admin, only: :create
 
