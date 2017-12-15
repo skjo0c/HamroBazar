@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171215152047) do
+ActiveRecord::Schema.define(version: 20171215162345) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "Advertisements_Categories", id: false, force: :cascade do |t|
+    t.integer "advertisement_id", null: false
+    t.integer "category_id",      null: false
+    t.index ["advertisement_id", "category_id"], name: "ad_cat", using: :btree
+    t.index ["category_id", "advertisement_id"], name: "cat_ad", using: :btree
+  end
 
   create_table "adphotos", force: :cascade do |t|
     t.string   "picture"

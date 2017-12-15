@@ -1,3 +1,3 @@
 class Category < ApplicationRecord
-	belongs_to :advertisement
+	has_and_belongs_to_many :advertisements
 end
