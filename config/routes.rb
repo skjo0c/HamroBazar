@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   		resources :advertisements
       	post 'authenticate', to: 'authentication#authenticate'
       	post 'auth/login', to: 'users#login'
+      	resources :categorys
   	end
   end
 
