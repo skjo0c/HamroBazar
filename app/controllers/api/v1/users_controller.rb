@@ -33,7 +33,7 @@ module Api
 
 			private
 			def user_params
-				params.permit(:firstname, :lastname, :email, :password, :mobile, :picture)
+				params.permit(:firstname, :lastname, :email, :password, :mobile)
 			end
 
 			def authenticate(email, password)

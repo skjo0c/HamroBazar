@@ -2,7 +2,7 @@ module Api
 	module V1
 		class CategoriesController < ApplicationController
 			
-			before_filter: authorize_admin, only: :create, :destroy
+			before_filter: authorize_admin, only: [:create, :destroy]
 
 			def create
 				category = Category.new(category_params)
