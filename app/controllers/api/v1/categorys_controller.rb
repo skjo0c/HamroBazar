@@ -2,7 +2,8 @@ module Api
 	module V1
 		class CategorysController < ApplicationController
 			
-			before_filter: authorize_admin, only: [:create, :destroy]
+			before_filter :authorize_admin, only: [:create, :destroy]
+			skip_before_action :authenticate_request, only: [:index, :show]
 
 			def index
 				categorys = Category.order('title ASC')
@@ -15,6 +16,7 @@ module Api
 					render json:{status: 'sucess', message: 'category added', data:category}, status: :ok
 				else
 					render json:{status: 'error', message: 'category not added', data:category}, status: :unprocessable_entity
+				end
 			end
 
 			def destroy
