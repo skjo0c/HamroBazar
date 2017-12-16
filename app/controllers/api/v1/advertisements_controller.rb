@@ -6,7 +6,6 @@ module Api
 			def index
 				advertisements = Advertisement.order('created_at DESC')
 				render json:{status:'sucess', message:'advertisement lists', data:advertisements}, status: :ok
-
 			end
 
 			def show

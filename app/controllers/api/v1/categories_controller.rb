@@ -4,6 +4,10 @@ module Api
 			
 			before_filter: authorize_admin, only: [:create, :destroy]
 
+			def index
+				category = Category.order('title ASC')
+			end
+
 			def create
 				category = Category.new(category_params)
 				if category.save
@@ -16,10 +20,6 @@ module Api
 				category = Category.find(params[:id])
 				category.destroy
 				render json:{sucess:'deleted', message:'Category has been deleted', data:category}, sucess: :unprocessable_entity
-			end
-
-			def index
-				category = Category.order('title ASC')
 			end
 
 			private
