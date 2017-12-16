@@ -15,7 +15,7 @@ module Api
 			end
 
 			def create
-				advertisement = Advertisement.new(advertisement_params)
+				advertisement = current_user.advertisements.new(advertisement_params)
 	
 				if advertisement.save
 					params[:advertisement][:picture_data].each do |file|
