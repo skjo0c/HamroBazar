@@ -1,11 +1,12 @@
 module Api
 	module V1
-		class CategoriesController < ApplicationController
+		class CategorysController < ApplicationController
 			
 			before_filter: authorize_admin, only: [:create, :destroy]
 
 			def index
-				category = Category.order('title ASC')
+				categorys = Category.order('title ASC')
+				render json:{data:categorys}
 			end
 
 			def create
