@@ -24,6 +24,7 @@ module Api
 				else
 					render json:{status: 'error', message: 'advertisement not added', data:advertisement}, status: :unprocessable_entity
 				end
+				advertisement.categories = Category.where(id: advertisement_params['category_id'])
 			end
 
 			def destroy
@@ -35,7 +36,7 @@ module Api
 			private
 
 			def advertisement_params
-				params.permit(:name, :price, :description, :picture_data => [])
+				params.permit(:name, :price, :description, :category_id, :picture_data => [])
 			end
 		end
 	end
