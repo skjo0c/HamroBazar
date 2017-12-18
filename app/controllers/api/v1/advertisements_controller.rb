@@ -4,8 +4,13 @@ module Api
 			skip_before_action :authenticate_request, only: [:index, :show]
 			
 			def index
-				advertisements = Advertisement.order('created_at DESC')
-				render json:{status:'sucess', message:'advertisement lists', data:advertisements}, status: :ok
+				if params[:category_id]
+					advertisements = Advertisement.includes(:categories).where('categories.id' => 'category_id')
+					render json:{status:'sucess', message:'advertisement lists', data:advertisements}, status: :ok
+				else
+					advertisements = Advertisement.order('created_at DESC')
+					render json:{status:'sucess', message:'advertisement lists', data:advertisements}, status: :ok
+				end				
 			end
 
 			def show
@@ -17,6 +22,7 @@ module Api
 				advertisement = current_user.advertisements.new(advertisement_params)
 	
 				if advertisement.save
+					advertisement.categories = Category.where(id: advertisement_params['category_id'])
 					params[:advertisement][:picture_data].each do |file|
 						advertisement.adphotos.create!(:picture => file)
 					end	if params[:advertisement][:picture_data].present?
@@ -24,7 +30,6 @@ module Api
 				else
 					render json:{status: 'error', message: 'advertisement not added', data:advertisement}, status: :unprocessable_entity
 				end
-				advertisement.categories = Category.where(id: advertisement_params['category_id'])
 			end
 
 			def destroy
@@ -36,7 +41,7 @@ module Api
 			private
 
 			def advertisement_params
-				params.permit(:name, :price, :description, :category_id, :picture_data => [])
+				params.permit(:name, :price, :description, :category_id => [], :picture_data => [])
 			end
 		end
 	end
