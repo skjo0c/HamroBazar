@@ -5,7 +5,7 @@ module Api
 			
 			def index
 				if params[:category_id]
-					advertisements = Advertisement.includes(:categories).where('categories.id' => 'category_id')
+					advertisements = Advertisement.includes(:categories).where('categories.id' => params[:category_id])
 					render json:{status:'sucess', message:'advertisement lists', data:advertisements}, status: :ok
 				else
 					advertisements = Advertisement.order('created_at DESC')
@@ -41,7 +41,7 @@ module Api
 			private
 
 			def advertisement_params
-				params.permit(:name, :price, :description, :category_id => [], :picture_data => [])
+				params.permit(:name, :price, :description, :picture_data, :category_id => [])
 			end
 		end
 	end
