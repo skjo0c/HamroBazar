@@ -20,12 +20,9 @@ module Api
 
 			def create
 				advertisement = current_user.advertisements.new(advertisement_params)
-	
 				if advertisement.save
 					advertisement.categories = Category.where(id: advertisement_params['category_id'])
-					params[:advertisement][:picture_data].each do |file|
-						advertisement.adphotos.create!(:picture => file)
-					end	if params[:advertisement][:picture_data].present?
+					advertisement.adphotos.create!(:picture => params['file']) if params['file'].present?
 					render json:{status: 'sucess', message: 'advertisement added', data:advertisement}, status: :ok
 				else
 					render json:{status: 'error', message: 'advertisement not added', data:advertisement}, status: :unprocessable_entity
