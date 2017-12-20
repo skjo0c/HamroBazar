@@ -10,15 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171216054907) do
+ActiveRecord::Schema.define(version: 20171219085904) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "adphotos", force: :cascade do |t|
+    t.integer  "advertisement_id"
     t.string   "picture"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["advertisement_id"], name: "index_adphotos_on_advertisement_id", using: :btree
   end
 
   create_table "advertisements", force: :cascade do |t|
@@ -64,4 +66,5 @@ ActiveRecord::Schema.define(version: 20171216054907) do
     t.boolean  "admin",           default: false
   end
 
+  add_foreign_key "adphotos", "advertisements"
 end

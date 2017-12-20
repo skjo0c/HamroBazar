@@ -41,7 +41,7 @@ module Api
 			private
 
 			def advertisement_params
-				params.permit(:name, :price, :description, :picture_data, :category_id => [])
+				params.permit(:name, :price, :description, :picture_data => [] , :category_id => [])
 			end
 		end
 	end

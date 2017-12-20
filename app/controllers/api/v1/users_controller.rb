@@ -37,7 +37,7 @@ module Api
 
 			private
 			def user_params
-				params.permit(:firstname, :lastname, :email, :password, :mobile)
+				params.permit(:firstname, :lastname, :email, :password, :mobile, :picture)
 			end
 
 			def authenticate(email, password)
