@@ -4,18 +4,22 @@ module Api
 			skip_before_action :authenticate_request, only: [:index, :show]
 			
 			def index
-				if params[:category_id]
-					advertisements = Advertisement.includes(:categories).where('categories.id' => params[:category_id])
-					render json:{status:'sucess', message:'advertisement lists', data:advertisements}, status: :ok
+				advertisements = if params[:category_id]
+					Advertisement.includes(:categories).where('categories.id' => params[:category_id])
 				else
-					advertisements = Advertisement.order('created_at DESC')
-					render json:{status:'sucess', message:'advertisement lists', data:advertisements}, status: :ok
-				end				
+					Advertisement.order('created_at DESC')
+				end
+				data = []
+				advertisements.each do |advertisement|
+					data << advertisement.as_json.merge(picture_data: advertisement.adphotos.first&.picture_url)
+				end
+				render json:{status:'sucess', message:'advertisement lists', data:data}, status: :ok
 			end
 
 			def show
 				advertisement = Advertisement.find(params[:id])
-				render json:{status:'ok', message:'You searched for...', data:advertisement},status: :ok
+				data = advertisement.as_json.merge(picture_data: advertisement.adphotos.first.picture_url)
+				render json:{status:'ok', message:'You searched for...', data:data},status: :ok
 			end
 
 			def create
