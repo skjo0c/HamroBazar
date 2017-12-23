@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   	namespace 'v1' do
   		resources :users
       get 'current_users', to: 'users#current_users'
+      get 'user_advertisements', to: 'users#user_advertisements'
   		resources :advertisements
     	post 'authenticate', to: 'authentication#authenticate'
     	post 'auth/login', to: 'users#login'

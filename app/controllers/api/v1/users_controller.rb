@@ -8,6 +8,10 @@ module Api
 				render json: current_user.to_json
 			end
 
+			def user_advertisements
+				render json: current_user.advertisements.to_json
+			end
+
 			def index
 				users = User.order('created_at DESC')
 				render json:{status: 'ok', message: 'all users...', data:users}, status: :ok
