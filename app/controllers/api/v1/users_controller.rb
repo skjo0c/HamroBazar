@@ -9,10 +9,12 @@ module Api
 			end
 
 			def user_advertisements
+				advertisements = current_user.advertisements
 				data = []
 				advertisements.each do |advertisement|
 					data << advertisement.as_json.merge(picture_data: advertisement.adphotos.first&.picture_url)
-				render json: current_user.advertisements.to_json
+				end
+				render json: data.to_json
 			end
 
 			def index
