@@ -18,7 +18,7 @@ module Api
 
 			def show
 				advertisement = Advertisement.find(params[:id])
-				data = advertisement.as_json.merge(picture_data: advertisement.adphotos.first.picture_url, firstname: advertisement.user.firstname, contact: advertisement.user.mobile)
+				data = advertisement.as_json.merge(picture_data: advertisement.adphotos.first.picture_url, firstname: advertisement.user.firstname, contact: advertisement.user.mobile, categories: advertisement.categories.map(&:title))
 				render json:{status:'ok', message:'You searched for...', data:data},status: :ok
 			end
 
