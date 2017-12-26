@@ -22,19 +22,20 @@ module Api
 				render json:{status: 'ok', message: 'all users...', data:users}, status: :ok
 			end
 
-			def create
-				user = User.new(user_params)
-				if user.save
-					user.create!(:picture => params['file']) if params['file'].present?
-					render json:{status:'ok', message:'user added', data:user}, status: :ok
-				else
-					render json:{status:'error', message:'user not added', data:user}, status: :unprocessable_entity
-				end
-			end
+			# def create
+			# 	user = User.new(user_params)
+			# 	if user.save
+			# 		user.create!(:picture => params['file']) if params['file'].present?
+			# 		render json:{status:'ok', message:'user added', data:user}, status: :ok
+			# 	else
+			# 		render json:{status:'error', message:'user not added', data:user}, status: :unprocessable_entity
+			# 	end
+			# end
 
 			def register
 				user = User.create(user_params)
 				if user.save
+					user.create!(:picture => params['file']) if params['file'].present?
 					render json: response, status: :created
 				else
 					render json: user.errors, status: :bad
